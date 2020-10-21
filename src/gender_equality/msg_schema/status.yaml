@@ -1,0 +1,15 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: http://visiona-ip.es/face_recognition/api_def/user.yaml
+components:
+  schemas:
+    status:
+      properties:
+        status:
+          readOnly: true
+          type: string
+        percentage:
+          readOnly: true
+          type: float
+      required:
+      - status
+      type: object

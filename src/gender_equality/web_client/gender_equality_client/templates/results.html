@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mt-2 col-sm-4">
+	<h1 class="mb-2">Video results</h1>
+</div>
+<div class="mt-4 mr-2 col-sm-4">
+	<h2>Gender</h2>
+	<ul class="list-group">
+		{% for gender, percentage in gender_dict.items() %}
+		<li class="list-group-item">{{ gender }}: {{ percentage }}</li>
+		{% endfor %}
+	</ul>
+</div>
+<div class="w-100"></div>
+<div class="mt-4 mr-2 col-sm-4">
+	<h2>Speakers</h2>
+	<ul class="list-group">
+		{% for (gender, speaker), percentage in speakers_dict.items() %}
+		<li class="list-group-item">{{ speaker }} ({{ gender }}): {{ percentage }}</li>
+		{% endfor %}
+	</ul>
+</div>
+<div class="w-100"></div>
+<div class="mt-4 mr-2 col-sm-6">
+	<h2>Time progress </h2>
+	{{time_table | safe}}
+</div>
+{% endblock %}

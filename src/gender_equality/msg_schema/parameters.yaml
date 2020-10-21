@@ -1,0 +1,12 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: http://test.es/msg_schemas/parametes.yaml
+components:
+  parameters:
+    detector_param:      # Can be referenced via '#/components/parameters/device_param'
+      in: path
+      name: detector_id
+      description: identification string of the target detector
+      required: true
+      schema:
+        type: string
+

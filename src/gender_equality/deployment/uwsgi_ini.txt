@@ -1,0 +1,6 @@
+[uwsgi]
+http-socket = :$(PORT)
+master = true
+die-on-term = true
+module = openapi_server.server.main:app
+memory-report = true

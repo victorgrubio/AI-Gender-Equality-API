@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block javascript %}
+    <script src="../static/js/progress.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="mt-2 col-sm-4">
+	<h1 class="mb-2">Loading data</h1>
+</div>
+<div class="mt-4 mr-2 col-sm-6">
+	<h2>Processing video ...</h2>
+	<div class="progress">
+		<div class="progress-bar" role="progressbar" id="progressBar" aria-valuenow="0" aria-valuemax="100" style="width: 0%;">
+		0%
+		</div>
+	</div>
+</div>
+{% endblock %}

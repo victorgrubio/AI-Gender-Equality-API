@@ -1,0 +1,112 @@
+add_import () {
+	echo "\tAdding $1 from $2 as import to $3"
+	target_file="$API_DEF_PATH/models/$3.py"
+	if [ ! -f $target_file ]; then
+	    echo "\t\tTarget $target_file not found in insert added."
+	    return
+	fi
+	sed -i 's/from openapi_server.models.base_model_/from maitred.models.'$2' import '$1'\n\nfrom openapi_server.models.base_model_/g' $target_file
+}
+
+deploy_file () {
+    echo "\tDeploying $1 model"
+    target_file="$API_DEF_PATH/models/$1.py"
+    deploy_file="$MODULE_ROOT_PATH/models/$1.py"
+    if [ ! -f $target_file ]; then
+        echo "\t\tTarget $target_file not found not deployed."
+        return
+    fi
+    echo "DEPLOY FILE: ${deploy_file}"
+    sed -i 's/from openapi_server.models.base_model_/from maitred.models.base_model_/g' $target_file
+    sed -i 's/from openapi_server import util/from maitred.utils import util/g' $target_file
+    sed -n -i '/from openapi_server.models.one_of/!p' $target_file
+    if [ $target_file = "$API_DEF_PATH/models/state.py" ]; then
+        sed -i "s/from openapi_server.models.state_files import StateFiles/from visiona_ip$sensor_name.age_gender_sensor.models.state_files import StateFiles/g" $target_file
+    fi
+    if [ $target_file = "$API_DEF_PATH/models/detection.py" ]; then
+        sed -i "s/from openapi_server.models.detection_prediction import DetectionPrediction/from visiona_ip$sensor_name.models.detection_prediction import DetectionPrediction/g" $target_file
+    fi
+    sed -i 's/openapi_server.models/maitred.models/g' $target_file
+    rm -Rf $deploy_file
+    cp $target_file $deploy_file
+}
+---
+
+echo "Copying connection model set"
+deploy_file connection_map
+deploy_file connections
+deploy_file connection_groups
+deploy_file interface
+deploy_file security
+deploy_file endpoint
+
+echo "Copying gateway_map model"
+deploy_file gateway_map
+deploy_file device_map
+deploy_file sensor_map
+
+echo "Copying device_type model"
+deploy_file device_type
+deploy_file sensor_type
+
+echo "Copying error model"
+deploy_file error
+
+echo "Copying schema model"
+deploy_file schema
+
+echo "Copying message model"
+deploy_file message
+deploy_file address
+
+echo "Copying connection model set"
+deploy_file connection_map
+deploy_file connections
+deploy_file connection_groups
+deploy_file interface
+deploy_file security
+deploy_file endpoint
+
+echo "Copying gateway_map model"
+deploy_file gateway_map
+deploy_file device_map
+deploy_file sensor_map
+
+echo "Copying device_type model"
+deploy_file device_type
+deploy_file sensor_type
+
+echo "Copying error model"
+deploy_file error
+
+echo "Copying schema model"
+deploy_file schema
+
+echo "Copying message model"
+deploy_file message
+deploy_file address
+
+# Here we have the model for the specific sensor
+echo "Copying state model"
+deploy_file state_files
+deploy_file state
+
+echo "Copying image model"
+deploy_file image
+
+echo "Copying detection model"
+deploy_file detection_prediction
+deploy_file detection
+# Here we have the model for the specific sensor
+echo "Copying state model"
+deploy_file state_files
+deploy_file state
+
+echo "Copying image model"
+deploy_file image
+
+echo "Copying detection model"
+deploy_file detection_prediction
+deploy_file detection
+------
+

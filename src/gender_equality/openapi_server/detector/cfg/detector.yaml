@@ -1,0 +1,34 @@
+img:
+   img_size: 64
+   
+programs:
+   - informe_semanal
+   - desayunos
+   - informativo
+   - noche_24h_15min
+   - noche_24h_30min
+   
+informe_semanal:
+   video_path: "/home/visiona2/Videos/videos_age_gender/gender_equality_demo/recoded_informe_semanal_07092019.mp4"
+   gender_path: "texts/gender/gender_informe_semanal_Perceptron.txt"
+   speakers_path: "texts/speakers/speakers_informe_semanal.txt"
+   
+desayunos:
+   video_path: "/home/visiona2/Videos/videos_age_gender/gender_equality_demo/desayunos_sanchez_cut.mp4"
+   gender_path: "texts/gender/gender_desayunos_Perceptron_sorted.txt"
+   speakers_path: "texts/speakers/speakers_desayunos.txt"
+   
+informativo:
+   video_path: "/home/visiona2/Videos/videos_age_gender/gender_equality_demo/informativo_2019_04_11.mp4"
+   gender_path: "texts/gender/informativo_2019_04_11_GaussianNB.txt"
+   speakers_path: "texts/speakers/informativo_2019_04_11.txt"
+   
+noche_24h_15min:
+   video_path: "/home/visiona2/Videos/videos_age_gender/gender_equality_demo/noche_en_24h_2019_10_31_cut15min.mp4"
+   gender_path: "texts/gender/noche_en_24h_2019_10_31_cut15min.txt"
+   speakers_path: "texts/speakers/noche_en_24h_2019_10_31_cut15min.txt"
+   
+noche_24h_30min:
+   video_path: "/home/visiona2/Videos/videos_age_gender/gender_equality_demo/noche_en_24h_2019_10_31_cut30min.mp4"
+   gender_path: "texts/gender/noche_en_24h_2019_10_31_cut30min.txt"
+   speakers_path: "texts/speakers/noche_en_24h_2019_10_31_cut30min.txt"      

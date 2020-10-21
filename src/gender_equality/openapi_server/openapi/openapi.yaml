@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  title: Visiona Gender Equality REST API
+  version: 1.0.0
+servers:
+- url: /v1/gender_equality
+tags:
+- name: gender_equality
+paths:
+  /face_detection:
+    post:
+      operationId: start_face_detection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/start_detector'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/detector'
+                - $ref: '#/components/schemas/response_msg'
+          description: Expected response to a valid request
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: unexpected error
+      summary: Start the detection process
+      tags:
+      - face_recognition
+      x-openapi-router-controller: openapi_server.router
+  /results:
+    get:
+      operationId: get_results
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/detector'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/results'
+                - $ref: '#/components/schemas/response_msg'
+          description: Expected response to a valid request
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: unexpected error
+      summary: Gets the results from the detection process
+      tags:
+      - face_recognition
+      x-openapi-router-controller: openapi_server.router
+  /{detector_id}/status:
+    get:
+      operationId: get_detector_status
+      parameters:
+      - description: identification string of the target detector
+        in: path
+        name: detector_id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/status'
+                - $ref: '#/components/schemas/response_msg'
+          description: Expected response to a valid request
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: unexpected error
+      summary: Posts a general message and streams messages as a result
+      tags:
+      - detector
+      x-openapi-router-controller: openapi_server.router
+components:
+  schemas:
+    start_detector:
+      properties:
+        video:
+          type: string
+      required:
+      - video
+      type: object
+    detector:
+      properties:
+        id:
+          type: string
+      required:
+      - id
+      type: object
+    response_msg:
+      properties:
+        tag:
+          description: Message type of payload
+          type: string
+        ts:
+          description: Timestamp of message generation
+          format: int64
+          type: integer
+        data:
+          description: Payload (in json format)
+          type: object
+      type: object
+    error:
+      properties:
+        status:
+          format: int32
+          type: integer
+        title:
+          type: string
+        detail:
+          type: string
+      required:
+      - status
+      - title
+      type: object
+    results:
+      properties:
+        results:
+          type: string
+      required:
+      - results
+      type: object
+    status:
+      properties:
+        status:
+          readOnly: true
+          type: string
+        percentage:
+          readOnly: true
+          type: integer
+      required:
+      - status
+      type: object

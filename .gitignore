@@ -1,0 +1,11 @@
+# openapi generator
+openapi_generator/*
+
+#tmp files
+tmp/*
+
+#Eclipse
+.project
+.pydevproject
+.settings
+.vscode/*

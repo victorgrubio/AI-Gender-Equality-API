@@ -1,0 +1,2 @@
+#web: gunicorn openapi_server.server.main:app.main
+web: uwsgi --http :5000 -w openapi_server.server.my_app

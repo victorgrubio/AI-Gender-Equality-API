@@ -1,0 +1,17 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: http://visiona-ip.es/api_def/gen_message.yaml
+components:
+  schemas:
+    response_msg:
+      type: object
+      properties:
+        tag:
+          description: Message type of payload
+          type: string
+        ts:
+          description: Timestamp of message generation
+          type: integer
+          format: int64
+        data:
+          description: Payload (in json format)
+          type: object

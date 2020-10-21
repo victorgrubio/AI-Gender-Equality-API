@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Visiona Gender Equality REST API
+servers:
+  - url: /v1/gender_equality
+tags:
+  - name: gender_equality
+paths:
+  /face_detection:
+    post:
+      operationId: start_face_detection
+      tags:
+        - face_recognition
+      summary: Start the detection process
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '../msg_schema/start_detector.yaml#/components/schemas/start_detector'
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '../msg_schema/detector.yaml#/components/schemas/detector'
+                  - $ref: '../msg_schema/response_msg.yaml#/components/schemas/response_msg'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "../msg_schema/error.yaml#/components/schemas/error"
+      x-openapi-router-controller: openapi_server.router
+  /results:
+    get:
+      operationId: get_results
+      tags:
+        - face_recognition
+      summary: Gets the results from the detection process
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '../msg_schema/detector.yaml#/components/schemas/detector'
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '../msg_schema/results.yaml#/components/schemas/results'
+                  - $ref: '../msg_schema/response_msg.yaml#/components/schemas/response_msg'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "../msg_schema/error.yaml#/components/schemas/error"
+      x-openapi-router-controller: openapi_server.router
+  /{detector_id}/status:
+    parameters:
+      - $ref: "../msg_schema/parameters.yaml#/components/parameters/detector_param"
+    get:
+      operationId: get_detector_status
+      tags:
+        - detector
+      summary: Posts a general message and streams messages as a result
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '../msg_schema/status.yaml#/components/schemas/status'
+                  - $ref: '../msg_schema/response_msg.yaml#/components/schemas/response_msg'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "../msg_schema/error.yaml#/components/schemas/error"
+      x-openapi-router-controller: openapi_server.router

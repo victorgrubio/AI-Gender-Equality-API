@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+<h1 class="mt-2">Process Video</h1>
+<div class="mt-2 col-sm-3">
+    <form action="/process" method="POST" novalidate>
+        <dl>
+            {{ form.csrf_token }}
+            {{ wtf.form_field(form.video) }}
+            <input class="btn btn-primary" type="submit" value="Process video">
+        </dl>
+    </form>
+</div>
+{% endblock %}
